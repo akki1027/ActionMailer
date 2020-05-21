@@ -50,7 +50,7 @@ end
 メール本文のレイアウトを作成します。  
 app/views/welcome_mailer/welcome_mail.text.erb
 ```bash
-会員登録が完了しました。
+<%= @user.name %> 様、会員登録が完了しました。
 
 以下のURLからマイページへアクセスしてください。
 <%= user_url(@user) %>
