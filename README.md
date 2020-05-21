@@ -36,6 +36,8 @@ $ rails g mailer WelcomeMailer
 #### 先ほど作成された、app/mailers/welcome_mailer.rbにメールの送信機能を実装するために追記をしていきます。
 app/mailers/welcome_mailer.rb
 ```bash
+default from: 'no-replay@gmail.com'
+
 def welcome_mail(user)
 	@user = user
 	@url = "http://localhost:3000/users/#{user.id}"
