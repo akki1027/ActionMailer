@@ -1,0 +1,9 @@
+<header>
+	<ul>
+		<li><%= link_to 'ログイン', new_user_session_path %></li>
+		<li><%= link_to '新規登録', new_user_registration_path %></li>
+		<% if user_signed_in? %>
+			<li><%= link_to 'マイページ', user_path(current_user) %></li>
+		<% end %>
+	</ul>
+</header>
