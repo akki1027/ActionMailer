@@ -14,7 +14,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     super
     # -----------------------追記----------------------
     if @user.save
-      NotificationMailer.complete_mail(@user).deliver_later
+      WelcomeMailer.welcome_mail(@user).deliver_later
     end
     # ---------------------追記ここまで------------------
   end
