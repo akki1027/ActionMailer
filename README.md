@@ -25,18 +25,18 @@ deviseのインストール・設定の仕方に関しては、今回は省略�
 
 # 最後にActionMailerを作成。
 ```bash
-$ rails g mailer NotificationMailer
+$ rails g mailer WelcomeMailer
 ```
-* app/mailers/notification_mailer.rb  
-* app/views/notification_mailer  
-* test/mailers/notification_mailer_test.rb  
-* test/mailers/previews/notification_mailer_preview.rb  
+* app/mailers/welcome_mailer.rb  
+* app/views/welcome_mailer  
+* test/mailers/welcome_mailer_test.rb  
+* test/mailers/previews/welcome_mailer_preview.rb  
 が作成されます。
 
-#### 先ほど作成された、app/mailers/notification_mailer.rbにメールの送信機能を実装するために追記をしていきます。
-app/mailers/notification_mailer.rb
+#### 先ほど作成された、app/mailers/welcome_mailer.rbにメールの送信機能を実装するために追記をしていきます。
+app/mailers/welcome_mailer.rb
 ```bash
-def complete_mail(user)
+def welcome_mail(user)
 	@user = user
 	@url = "http://localhost:3000/users/#{user.id}"
 	mail(
@@ -46,9 +46,9 @@ def complete_mail(user)
 end
 ```
 
-#### さらに、先ほどもう一つ作成されたapp/views/notification_mailerに、complete_mail.text.erbという名前でファイルを作成してください。
+#### さらに、先ほどもう一つ作成されたapp/views/welcome_mailerに、welcome_mail.text.erbという名前でファイルを作成してください。
 メール本文のレイアウトを作成します。  
-app/views/notification_mailer/complete_mail.text.erb
+app/views/welcome_mailer/welcome_mail.text.erb
 ```bash
 会員登録が完了しました。
 
@@ -70,7 +70,7 @@ config.action_mailer.perform_caching = false
     domain: 'gmail.com',
     port: 587,
     user_name: ENV['EMAIL'],
-    password:  ENV['PASSWOR'],
+    password:  ENV['PASSWORD'],
     authentication: 'plain',
     enable_starttls_auto: true
   }
@@ -89,7 +89,7 @@ PASSWORDには、メールサーバーとして利用するメールアカウン
 .env
 ```bash
 EMAIL="example@example"
-PASSWORD="123456"
+PASSWORD="example"
 ```
 
 
@@ -107,7 +107,7 @@ def create
 	super
 	# -----------------------追記----------------------
 	if @user.save
-	  NotificationMailer.complete_mail(@user).deliver_later
+	  WelcomeMailer.welcome_mail(@user).deliver_later
 	end
 	# ---------------------追記ここまで------------------
 end
